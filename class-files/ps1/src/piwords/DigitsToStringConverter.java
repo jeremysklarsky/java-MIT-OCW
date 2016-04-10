@@ -16,9 +16,24 @@ public class DigitsToStringConverter {
      *                 mutated.
      * @return A String encoding the input digits with alphabet.
      */
+        
     public static String convertDigitsToString(int[] digits, int base,
                                                char[] alphabet) {
         // TODO: Implement (Problem 3.b)
-        return "";
+        char[] charMap = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
+//      convert input to base 26
+        int[] digitsArray = BaseTranslator.convertBase(digits, base, 26, digits.length);
+
+//      map base26 to character
+        char[] outputChars = new char[digits.length];
+        
+        for (int i = 0; i < digits.length; i++) {
+            outputChars[i] = charMap[digitsArray[i]];
+        }
+        
+        String output = new String(outputChars);
+        
+        return output;
     }
 }
