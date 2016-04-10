@@ -1,5 +1,8 @@
 package piwords;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AlphabetGenerator {
     /**
      * Given a numeric base, return a char[] that maps every digit that is
@@ -53,6 +56,41 @@ public class AlphabetGenerator {
     public static char[] generateFrequencyAlphabet(int base,
                                                    String[] trainingData) {
         // TODO: Implement (Problem 5.b)
-        return null;
+        
+        HashMap<String, Float> letterCounts = new HashMap<String, Float>();
+        char[] newAlphabet = new char[base];
+        int totalLetters = 0;
+        for (int i = 0; i < trainingData.length; i++) {
+            String word = trainingData[i];
+            for (int n = 0; n < word.length(); n++){
+                char c = word.charAt(n);      
+                String letter = String.valueOf(c);
+                float count = letterCounts.containsKey(letter) ? letterCounts.get(letter) : 0;
+                letterCounts.put(letter, count + 1);
+                totalLetters++;
+            }
+        }
+
+        HashMap<String, Float> percents = new HashMap<String, Float>();
+
+        for (Map.Entry<String, Float> pair : letterCounts.entrySet()) {
+            String key = pair.getKey();
+            float value = pair.getValue();
+            percents.put(key, (value / totalLetters) * base);
+        }
+        System.out.println(percents);
+        int n = 0;
+        for (Map.Entry<String, Float> times: percents.entrySet()){
+            String key = times.getKey();
+            float occurs = times.getValue();
+            
+            int instances = (int)occurs;
+            
+            for (int k = 0; k < instances; k++) {
+                newAlphabet[n] = key.charAt(0);
+                n ++;
+            }     
+        }
+        return newAlphabet;
     }
 }
