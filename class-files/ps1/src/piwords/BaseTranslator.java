@@ -20,7 +20,7 @@ public class BaseTranslator {
      *      b. the new ith digit is x % baseA
      *      c. carry = x / baseA
      *   3. output[i] = carry
-     * 
+     *  
      * If digits[i] < 0 or digits[i] >= baseA for any i, return null
      * If baseA < 2, baseB < 2, or precisionB < 1, return null
      * 
@@ -34,6 +34,21 @@ public class BaseTranslator {
     public static int[] convertBase(int[] digits, int baseA,
                                     int baseB, int precisionB) {
         // TODO: Implement (Problem 2.b)
-        return null;
+        for(int i : digits) if(i<0) return null;
+        
+        if (baseA < 2 || baseB < 2 || precisionB < 1) return null;
+        
+        int[] output = new int[precisionB];
+        int carry = 0;
+        
+        for (int i = precisionB - 1; i >= 0; i--) {
+            int x = (digits[i] * baseB) + carry;
+            digits[i] = x % baseA;
+            carry = x / baseA;
+            output[i] = carry;
+        }
+        
+        return output;
+
     }
 }
